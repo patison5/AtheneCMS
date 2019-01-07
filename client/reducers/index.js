@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import UsersReducers from './users'
-import UserActive from './users-active'
+import defaultUsers from './users'
+import UserActive from './usersReducer'
 
 
 const allReducers = combineReducers({
-    users: UsersReducers,
+    defaultUsers: defaultUsers,
     activeUser: UserActive
 })
 
