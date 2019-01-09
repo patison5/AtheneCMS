@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { SelectUser, SelectAdmins } from '../actions/index'
+import { SelectUser, SelectAdmins, SelectAllUsers, SelectSlaves, SelectModerators } from '../actions/index'
 
 //tmp
 import initialUsers from '../reducers/users'
@@ -53,11 +53,11 @@ class UsersList extends Component {
             <div className="table__wrap">
 
                 <ul className="table-menu">
-                    <li className="table-menu__element">Все</li>
+                    <li className="table-menu__element" onClick={() => this.props.selectAllUsers()}>Все</li>
                     <li className="table-menu__element" onClick={() => this.props.selectAdmins()}>Администраторы</li>
-                    <li className="table-menu__element">Модераторы</li>
-                    <li className="table-menu__element">Редакторы</li>
-                    <li className="table-menu__element">Простые смертные</li>
+                    <li className="table-menu__element" onClick={() => this.props.selectModerators()}>Модераторы</li>
+                    <li className="table-menu__element" onClick={() => this.props.selectAdmins()}>Редакторы</li>
+                    <li className="table-menu__element" onClick={() => this.props.selectSlaves()}>Простые смертные</li>
                 </ul>
 
                 <table>
@@ -100,8 +100,11 @@ function mapStateTpProps (state) {
 
 function matchDispatchToProps (dispatch) {
     return bindActionCreators({
-        selectUser: SelectUser,
-        selectAdmins: SelectAdmins
+        selectAllUsers: SelectAllUsers,
+        selectAdmins: SelectAdmins,
+        selectModerators: SelectModerators,
+        selectSlaves: SelectSlaves,
+        selectUser: SelectUser
     }, dispatch)
 }
 

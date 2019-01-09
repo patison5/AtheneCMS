@@ -19,7 +19,7 @@ class UserDetails extends Component {
 
 function mapStateTpProps (state) {
     return {
-        user: state.activeUser
+        user: state.defaultUser
     }
 }
 
