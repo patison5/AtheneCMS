@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 
 class UserDetails extends Component {
     render () {
+        console.log('props', this.props)
+        console.log(this.state)
         if (!this.props.user) {
             return <div>Выберите пользователя</div>
         }
         return (
             <div>
                 <ul>
-                    <li>{this.props.user.name}</li>
-                    <li>{this.props.user.surname}</li>
                 </ul>
             </div>
         )
@@ -18,8 +18,9 @@ class UserDetails extends Component {
 }
 
 function mapStateTpProps (state) {
+    console.log('bim', state)
     return {
-        user: state.defaultUser
+        user: state.setectedSingleUser
     }
 }
 

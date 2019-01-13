@@ -107,6 +107,89 @@ var SelectUser = exports.SelectUser = function SelectUser(user) {
     };
 };
 
+// setting users reducers (tabs on the top pannel)
+var SelectAllUsers = exports.SelectAllUsers = function SelectAllUsers() {
+    //make async call to database
+    var allUsers = [{
+        id: 1,
+        name: "John",
+        surname: "Doe",
+        email: "gohnDoe@gmain.com",
+        login: "gohndohe",
+        registration_date: "06.01.2019",
+        role: "Slave"
+    }, {
+        id: 2,
+        name: "Fedor",
+        surname: "Penin",
+        email: "lulex.py@gmain.com",
+        login: "Lulex.py",
+        registration_date: "06.01.2019",
+        role: "Admin"
+    }, {
+        id: 1,
+        name: "Peter",
+        surname: "Jackson",
+        email: "peterj@gmain.com",
+        login: "peterJackson",
+        registration_date: "06.01.2019",
+        role: "moderator"
+    }, {
+        id: 3,
+        name: "Roma",
+        surname: "Matveev",
+        email: "romaBeorn@gmain.com",
+        login: "RomaBeorn",
+        registration_date: "06.01.2019",
+        role: "Admin"
+    }, {
+        id: 2,
+        name: "Fedor",
+        surname: "Penin",
+        email: "lulex.py@gmain.com",
+        login: "Lulex.py",
+        registration_date: "06.01.2019",
+        role: "Admin"
+    }];
+    return {
+        type: "ALL_USERS_SELECTED",
+        payload: allUsers
+    };
+};
+
+var SelectModerators = exports.SelectModerators = function SelectModerators() {
+    //make async call to database
+    var moderators = [{
+        id: 1,
+        name: "Peter",
+        surname: "Jackson",
+        email: "peterj@gmain.com",
+        login: "peterJackson",
+        registration_date: "06.01.2019",
+        role: "moderator"
+    }];
+    return {
+        type: "MODERATORS_SELECTED",
+        payload: moderators
+    };
+};
+
+var SelectSlaves = exports.SelectSlaves = function SelectSlaves() {
+    //make async call to database
+    var slaves = [{
+        id: 1,
+        name: "John",
+        surname: "Doe",
+        email: "gohnDoe@gmain.com",
+        login: "gohndohe",
+        registration_date: "06.01.2019",
+        role: "Slave"
+    }];
+    return {
+        type: "SLAVES_SELECTED",
+        payload: slaves
+    };
+};
 var SelectAdmins = exports.SelectAdmins = function SelectAdmins() {
     //make async call to database
     //temporary list...
@@ -161,6 +244,14 @@ var _users = __webpack_require__(/*! ./users */ "./client/components/users.js");
 
 var _users2 = _interopRequireDefault(_users);
 
+var _UserDetails = __webpack_require__(/*! ./UserDetails */ "./client/components/UserDetails.js");
+
+var _UserDetails2 = _interopRequireDefault(_UserDetails);
+
+var _Navigation = __webpack_require__(/*! ./layout/Navigation */ "./client/components/layout/Navigation.js");
+
+var _Navigation2 = _interopRequireDefault(_Navigation);
+
 __webpack_require__(/*! ../css/style.css */ "./client/css/style.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -184,9 +275,20 @@ var App = function (_React$Component) {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
-                'div',
+                _reactRouterDom.BrowserRouter,
                 null,
-                _react2.default.createElement(_users2.default, null)
+                _react2.default.createElement(
+                    'div',
+                    { className: 'wraper' },
+                    _react2.default.createElement(_Navigation2.default, null),
+                    _react2.default.createElement(
+                        _reactRouterDom.Switch,
+                        null,
+                        _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _UserDetails2.default, exact: true }),
+                        _react2.default.createElement(_reactRouterDom.Route, { path: '/users', component: _users2.default }),
+                        _react2.default.createElement(_reactRouterDom.Route, { path: '/users/:id', component: _UserDetails2.default })
+                    )
+                )
             );
         }
     }]);
@@ -195,6 +297,247 @@ var App = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = App;
+
+/***/ }),
+
+/***/ "./client/components/UserDetails.js":
+/*!******************************************!*\
+  !*** ./client/components/UserDetails.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Header = __webpack_require__(/*! ./layout/Header */ "./client/components/layout/Header.js");
+
+var _Header2 = _interopRequireDefault(_Header);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserDetails = function UserDetails(props) {
+    console.log('hello world');
+    console.log(props);
+
+    var id = props.match.params.id;
+    return _react2.default.createElement(
+        'div',
+        { className: 'main-content__wrap' },
+        _react2.default.createElement(_Header2.default, null),
+        _react2.default.createElement(
+            'div',
+            { className: 'main-content' },
+            'user details - ',
+            id
+        )
+    );
+};
+
+exports.default = UserDetails;
+
+/***/ }),
+
+/***/ "./client/components/layout/Header.js":
+/*!********************************************!*\
+  !*** ./client/components/layout/Header.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (props) {
+    return _react2.default.createElement(
+        "div",
+        { className: "header__wrap" },
+        _react2.default.createElement(
+            "h1",
+            null,
+            " Welcome, ",
+            _react2.default.createElement(
+                "span",
+                { className: "header__nickname" },
+                "Lulex.py"
+            )
+        ),
+        _react2.default.createElement("span", { className: "system__logout" })
+    );
+};
+
+/***/ }),
+
+/***/ "./client/components/layout/Navigation.js":
+/*!************************************************!*\
+  !*** ./client/components/layout/Navigation.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+     value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+var _logo = __webpack_require__(/*! ../../images/logo.png */ "./client/images/logo.png");
+
+var _logo2 = _interopRequireDefault(_logo);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Navigation = function (_React$Component) {
+     _inherits(Navigation, _React$Component);
+
+     function Navigation() {
+          _classCallCheck(this, Navigation);
+
+          return _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).apply(this, arguments));
+     }
+
+     _createClass(Navigation, [{
+          key: 'render',
+          value: function render() {
+               return _react2.default.createElement(
+                    'div',
+                    { className: 'navigation__wrap' },
+                    _react2.default.createElement('img', { src: _logo2.default, alt: _logo2.default, className: 'navigation__logo' }),
+                    _react2.default.createElement(
+                         'ul',
+                         { className: 'navigation__list' },
+                         _react2.default.createElement(
+                              'div',
+                              { className: 'nav__category' },
+                              _react2.default.createElement(
+                                   'li',
+                                   { className: 'nav__element nav__element-title' },
+                                   '\u041E\u0441\u043D\u043E\u0432\u043D\u044B\u0435'
+                              ),
+                              _react2.default.createElement(
+                                   'li',
+                                   { className: 'nav__element' },
+                                   _react2.default.createElement(
+                                        _reactRouterDom.NavLink,
+                                        { className: 'nav__link', to: '/' },
+                                        '\u0413\u043B\u0430\u0432\u043D\u0430\u044F'
+                                   )
+                              ),
+                              _react2.default.createElement(
+                                   'li',
+                                   { className: 'nav__element' },
+                                   _react2.default.createElement(
+                                        _reactRouterDom.NavLink,
+                                        { className: 'nav__link', to: '/pages' },
+                                        '\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u044B'
+                                   )
+                              ),
+                              _react2.default.createElement(
+                                   'li',
+                                   { className: 'nav__element' },
+                                   _react2.default.createElement(
+                                        _reactRouterDom.NavLink,
+                                        { className: 'nav__link', to: '/posts' },
+                                        '\u041F\u043E\u0441\u0442\u044B'
+                                   )
+                              ),
+                              _react2.default.createElement(
+                                   'li',
+                                   { className: 'nav__element' },
+                                   _react2.default.createElement(
+                                        _reactRouterDom.NavLink,
+                                        { className: 'nav__link', to: '/users' },
+                                        '\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0438'
+                                   )
+                              ),
+                              _react2.default.createElement(
+                                   'li',
+                                   { className: 'nav__element' },
+                                   _react2.default.createElement(
+                                        _reactRouterDom.NavLink,
+                                        { className: 'nav__link', to: '/media' },
+                                        '\u041C\u0435\u0434\u0438\u0430'
+                                   )
+                              ),
+                              _react2.default.createElement(
+                                   'li',
+                                   { className: 'nav__element' },
+                                   _react2.default.createElement(
+                                        _reactRouterDom.NavLink,
+                                        { className: 'nav__link', to: '/tools' },
+                                        '\u0418\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u044B'
+                                   )
+                              ),
+                              _react2.default.createElement(
+                                   'li',
+                                   { className: 'nav__element' },
+                                   _react2.default.createElement(
+                                        _reactRouterDom.NavLink,
+                                        { className: 'nav__link', to: '/plugins' },
+                                        '\u041F\u043B\u0430\u0433\u0438\u043D\u044B'
+                                   )
+                              ),
+                              _react2.default.createElement(
+                                   'li',
+                                   { className: 'nav__element' },
+                                   _react2.default.createElement(
+                                        _reactRouterDom.NavLink,
+                                        { className: 'nav__link', to: '/themes' },
+                                        '\u0422\u0435\u043C\u044B'
+                                   )
+                              ),
+                              _react2.default.createElement(
+                                   'li',
+                                   { className: 'nav__element' },
+                                   _react2.default.createElement(
+                                        _reactRouterDom.NavLink,
+                                        { className: 'nav__link', to: '/settings' },
+                                        '\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438'
+                                   )
+                              )
+                         )
+                    )
+               );
+          }
+     }]);
+
+     return Navigation;
+}(_react2.default.Component);
+
+exports.default = Navigation;
 
 /***/ }),
 
@@ -224,14 +567,23 @@ var _usersDetails = __webpack_require__(/*! ../containers/usersDetails */ "./cli
 
 var _usersDetails2 = _interopRequireDefault(_usersDetails);
 
+var _Header = __webpack_require__(/*! ./layout/Header */ "./client/components/layout/Header.js");
+
+var _Header2 = _interopRequireDefault(_Header);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Users = function Users() {
     return _react2.default.createElement(
         'div',
-        null,
-        _react2.default.createElement(_usersList2.default, null),
-        _react2.default.createElement(_usersDetails2.default, null)
+        { className: 'main-content__wrap' },
+        _react2.default.createElement(_Header2.default, null),
+        _react2.default.createElement(
+            'div',
+            { className: 'main-content' },
+            _react2.default.createElement(_usersList2.default, null),
+            _react2.default.createElement(_usersDetails2.default, null)
+        )
     );
 };
 
@@ -281,6 +633,8 @@ var UserDetails = function (_Component) {
     _createClass(UserDetails, [{
         key: 'render',
         value: function render() {
+            console.log('props', this.props);
+            console.log(this.state);
             if (!this.props.user) {
                 return _react2.default.createElement(
                     'div',
@@ -291,20 +645,7 @@ var UserDetails = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(
-                    'ul',
-                    null,
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        this.props.user.name
-                    ),
-                    _react2.default.createElement(
-                        'li',
-                        null,
-                        this.props.user.surname
-                    )
-                )
+                _react2.default.createElement('ul', null)
             );
         }
     }]);
@@ -313,8 +654,9 @@ var UserDetails = function (_Component) {
 }(_react.Component);
 
 function mapStateTpProps(state) {
+    console.log('bim', state);
     return {
-        user: state.defaultUser
+        user: state.setectedSingleUser
     };
 }
 
@@ -346,6 +688,8 @@ var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js"
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
 var _index = __webpack_require__(/*! ../actions/index */ "./client/actions/index.js");
 
 var _users = __webpack_require__(/*! ../reducers/users */ "./client/reducers/users.js");
@@ -376,6 +720,16 @@ var UsersList = function (_Component) {
         key: 'showUsers',
         value: function showUsers() {
             var _this2 = this;
+
+            if (!this.props.users) return _react2.default.createElement(
+                'tr',
+                null,
+                _react2.default.createElement(
+                    'td',
+                    null,
+                    '\u0421\u043F\u0438\u0441\u043E\u043A \u043F\u0443\u0441\u0442'
+                )
+            );
 
             if (this.props.activeUsers) {
                 return this.props.activeUsers.map(function (user, index) {
@@ -414,12 +768,12 @@ var UsersList = function (_Component) {
                             null,
                             _react2.default.createElement(
                                 'a',
-                                { className: 'btn btn-red', href: '#' },
+                                { className: 'btn btn-red', href: '/users/1' },
                                 'delete'
                             ),
                             _react2.default.createElement(
-                                'a',
-                                { className: 'btn btn-blue', href: '#' },
+                                _reactRouterDom.NavLink,
+                                { className: 'btn btn-blue', to: '/users/1' },
                                 'change'
                             ),
                             _react2.default.createElement(
@@ -433,15 +787,6 @@ var UsersList = function (_Component) {
                     );
                 });
             }
-            if (!this.props.users) return _react2.default.createElement(
-                'tr',
-                null,
-                _react2.default.createElement(
-                    'td',
-                    null,
-                    '\u0421\u043F\u0438\u0441\u043E\u043A \u043F\u0443\u0441\u0442'
-                )
-            );
 
             return this.props.users.map(function (user, index) {
                 return _react2.default.createElement(
@@ -479,12 +824,12 @@ var UsersList = function (_Component) {
                         null,
                         _react2.default.createElement(
                             'a',
-                            { className: 'btn btn-red', href: '#' },
+                            { className: 'btn btn-red', href: '/users/1' },
                             'delete'
                         ),
                         _react2.default.createElement(
-                            'a',
-                            { className: 'btn btn-blue', href: '#' },
+                            _reactRouterDom.NavLink,
+                            { className: 'btn btn-blue', to: '/users/1' },
                             'change'
                         ),
                         _react2.default.createElement(
@@ -511,7 +856,9 @@ var UsersList = function (_Component) {
                     { className: 'table-menu' },
                     _react2.default.createElement(
                         'li',
-                        { className: 'table-menu__element' },
+                        { className: 'table-menu__element', onClick: function onClick() {
+                                return _this3.props.selectAllUsers();
+                            } },
                         '\u0412\u0441\u0435'
                     ),
                     _react2.default.createElement(
@@ -523,17 +870,23 @@ var UsersList = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'li',
-                        { className: 'table-menu__element' },
+                        { className: 'table-menu__element', onClick: function onClick() {
+                                return _this3.props.selectModerators();
+                            } },
                         '\u041C\u043E\u0434\u0435\u0440\u0430\u0442\u043E\u0440\u044B'
                     ),
                     _react2.default.createElement(
                         'li',
-                        { className: 'table-menu__element' },
+                        { className: 'table-menu__element', onClick: function onClick() {
+                                return _this3.props.selectAdmins();
+                            } },
                         '\u0420\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u044B'
                     ),
                     _react2.default.createElement(
                         'li',
-                        { className: 'table-menu__element' },
+                        { className: 'table-menu__element', onClick: function onClick() {
+                                return _this3.props.selectSlaves();
+                            } },
                         '\u041F\u0440\u043E\u0441\u0442\u044B\u0435 \u0441\u043C\u0435\u0440\u0442\u043D\u044B\u0435'
                     )
                 ),
@@ -632,14 +985,17 @@ var UsersList = function (_Component) {
 function mapStateTpProps(state) {
     return {
         users: state.defaultUsers,
-        activeUsers: state.activeUser
+        activeUsers: state.activeUsers
     };
 }
 
 function matchDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
-        selectUser: _index.SelectUser,
-        selectAdmins: _index.SelectAdmins
+        selectAllUsers: _index.SelectAllUsers,
+        selectAdmins: _index.SelectAdmins,
+        selectModerators: _index.SelectModerators,
+        selectSlaves: _index.SelectSlaves,
+        selectUser: _index.SelectUser
     }, dispatch);
 }
 
@@ -674,6 +1030,28 @@ var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyl
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
+
+/***/ }),
+
+/***/ "./client/images/logo.png":
+/*!********************************!*\
+  !*** ./client/images/logo.png ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "client/images/logo.png";
+
+/***/ }),
+
+/***/ "./client/images/mountains.jpg":
+/*!*************************************!*\
+  !*** ./client/images/mountains.jpg ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "client/images/mountains.jpg";
 
 /***/ }),
 
@@ -745,7 +1123,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var allReducers = (0, _redux.combineReducers)({
     defaultUsers: _users2.default,
-    activeUser: _usersReducer2.default
+    activeUsers: _usersReducer2.default,
+    setectedSingleUser: _usersReducer2.default
 });
 
 exports.default = allReducers;
@@ -785,21 +1164,13 @@ exports.default = function () {
         registration_date: "06.01.2019",
         role: "Admin"
     }, {
-        id: 3,
-        name: "Roma",
-        surname: "Matveev",
-        email: "romaBeorn@gmain.com",
-        login: "RomaBeorn",
+        id: 1,
+        name: "Peter",
+        surname: "Jackson",
+        email: "peterj@gmain.com",
+        login: "peterJackson",
         registration_date: "06.01.2019",
-        role: "Admin"
-    }, {
-        id: 2,
-        name: "Fedor",
-        surname: "Penin",
-        email: "lulex.py@gmain.com",
-        login: "Lulex.py",
-        registration_date: "06.01.2019",
-        role: "Admin"
+        role: "moderator"
     }, {
         id: 3,
         name: "Roma",
@@ -814,30 +1185,6 @@ exports.default = function () {
         surname: "Penin",
         email: "lulex.py@gmain.com",
         login: "Lulex.py",
-        registration_date: "06.01.2019",
-        role: "Admin"
-    }, {
-        id: 3,
-        name: "Roma",
-        surname: "Matveev",
-        email: "romaBeorn@gmain.com",
-        login: "RomaBeorn",
-        registration_date: "06.01.2019",
-        role: "Admin"
-    }, {
-        id: 2,
-        name: "Fedor",
-        surname: "Penin",
-        email: "lulex.py@gmain.com",
-        login: "Lulex.py",
-        registration_date: "06.01.2019",
-        role: "Admin"
-    }, {
-        id: 3,
-        name: "Roma",
-        surname: "Matveev",
-        email: "romaBeorn@gmain.com",
-        login: "RomaBeorn",
         registration_date: "06.01.2019",
         role: "Admin"
     }];
@@ -865,6 +1212,7 @@ exports.default = function () {
 
     switch (action.type) {
         case "USER_SELECTED":
+            console.log('user', action.payload);
             return action.payload;
             break;
         case "ADMINS_SELECTED":
@@ -989,8 +1337,12 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Imports
+var urlEscape = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/url-escape.js */ "./node_modules/css-loader/dist/runtime/url-escape.js");
+var ___CSS_LOADER_URL___0___ = urlEscape(__webpack_require__(/*! ../images/mountains.jpg */ "./client/images/mountains.jpg"));
+
 // Module
-exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\nhtml {\n  height: 100%; }\n\nbody {\n  height: 100%;\n  font: 13px/16px Arial, Tahoma, sans-serif;\n  color: #383838;\n  background: #fff; \n}\n\nol, ul, li {\n  list-style: none; \n}\n\na {\n  color: #3b3b3b;\n  text-decoration: none; \n}\n\na:hover {\n  color: #000;\n}\n\n.clearfix:before,\n.clearfix:after {\n  content: \" \";\n  display: table; \n}\n\n.clearfix:after {\n  clear: both; \n}\n\n.left {\n  float: left; \n}\n\n.right {\n  float: right; \n}\n\n.btn {\n    padding: 5px 10px;\n    display: inline-block;\n}\n.btn-blue {\n    background-color: #1b75c5;\n    color: #fff;\n}\n\n.btn-red {\n    background-color: #d44422;\n    color: #fff;\n}\n\n.btn-orange {\n    background-color: #de7c14;\n    color: #fff;\n}\n\ninput {\n  -webkit-appearance: none; \n}\n\n* {\n\tmargin: 0;\n\toutline: none;\n\tpadding: 0;\n\n\t-webkit-box-sizing: border-box;\n\t   -moz-box-sizing: border-box;\n\t\t\tbox-sizing: border-box;\n}\n\n.logo {\n/*\tbackground: url(\"../images/logo.png\");*/\n}\n\n.system__logout {\n\tdisplay: inline-block;\n\theight: 20px;\n\twidth: 20px;\n\t/*background: url(\"../images/icons/logout.png\") no-repeat center center;*/\n\tbackground-size: cover;\n\tpadding-top: 4px;\n}\n\n\n.wraper {\n\twidth: 100vw;\n  \theight: 100vh;\n  \t/*background: url(\"../images/mountains.jpg\");*/\n  \t-webkit-background-size: cover;\n  \tbackground-size: cover;\n\tdisplay: grid;\n\tgrid-column-gap: 20px;\n\talign-content: stretch;\t\n\tjustify-content: stretch;\t\n\tgrid-template-columns: minmax(130px, 300px) minmax(400px, auto);\n}\n\n\n\n\n/* navigation */\n.navigation__wrap {\n\tbackground: rgba(255,255,255, 0.5);\n\tpadding: 50px;\n\tpadding-top: 35px;\n}\n\n.navigation__logo {\n\tmargin: 0 auto 40px;\n\tdisplay: block;\n}\n\n.navigation__list {}\n\n.nav__element {\n\tdisplay: flex;\n\tmargin-bottom: 25px;\n\toverflow: hidden;\n \talign-items: center;\n}\n\n.nav__element-title {\n\tpadding-top: 15px;\n\tpadding-left: 0;\n\tcolor: #3b3b3b;\n\tfont-weight: bold;\n}\n\n.nav__link {\n\tcolor: #4c4c4c;\n}\n.nav__element-icon {\n\twidth: 15px;\n\theight: 15px;\n\tdisplay: inline-block;\n\tbackground-size: cover;\n\tmargin-right: 12px;\n}\n\n\n\n\n/* header */\n.header__wrap {\n\theight: 35px;\n\tline-height: 35px;\n\tbackground: rgba(255,255,255, 0.5);\n\ttext-align: right;\n\tcolor: #4c4c4c;\n\t/*font-weight: bold;*/\n\tpadding: 0 20px;\n}\n\n.header__nickname {\n\tfont-weight: bold;\n}\n\n/* styling tables */\n.table__wrap {\n    padding: 15px;\n}\n\n.table-menu {\n    width: 100%;\n    display: block;\n    margin-bottom: 20px;\n}\n.table-menu__element {\n    display: inline-block;\n    margin-right: 15px;\n}\n.table-menu__element:hover {\n    cursor: pointer;\n    text-decoration: underline;\n}\n\n\ntable {\n    border-collapse: collapse;\n    width: 100%;\n}\nthead, tfoot {\n    background: #fff;\n    border: 1px solid #888;\n}\ntbody {\n    border-right: 1px solid #888;\n    border-left: 1px solid #888;\n}\ntd {\n    padding: 8px 0;\n}\n\ntd:last-child {\n    padding-right: 25px;\n    text-align: right;\n}\ntd:first-child {\n    padding-left: 25px;\n}\n\ntbody tr:nth-child(2n+1) {\n    background: rgba(0,0,0,0.1);\n}\n\ntbody td {\n    vertical-align: middle;\n}\n\ntd .btn {\n    float: right;\n    margin-right: 5px;\n    text-transform: uppercase;\n    font-size: 8.5px;\n}\ntd .btn:first-child {\n    margin-right: 0;\n}\n\n/* main block */\n.main-content {\n\tpadding: 15px;\n\tdisplay: block;\n\tmargin-top: 20px;\n\tmargin-right: 20px;\n\tbackground: rgba(255,255,255, 0.5);\n}\n\n\n", ""]);
+exports.push([module.i, "html, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\nhtml {\n  height: 100%; }\n\nbody {\n  height: 100%;\n  font: 13px/16px Arial, Tahoma, sans-serif;\n  color: #383838;\n  background: #fff; \n}\n\nol, ul, li {\n  list-style: none; \n}\n\na {\n  color: #3b3b3b;\n  text-decoration: none; \n}\n\na:hover {\n  color: #000;\n}\n\n.clearfix:before,\n.clearfix:after {\n  content: \" \";\n  display: table; \n}\n\n.clearfix:after {\n  clear: both; \n}\n\n.left {\n  float: left; \n}\n\n.right {\n  float: right; \n}\n\n.btn {\n    padding: 5px 10px;\n    display: inline-block;\n}\n.btn-blue {\n    background-color: #1b75c5;\n    color: #fff;\n}\n\n.btn-red {\n    background-color: #d44422;\n    color: #fff;\n}\n\n.btn-orange {\n    background-color: #de7c14;\n    color: #fff;\n}\n\ninput {\n  -webkit-appearance: none; \n}\n\n* {\n\tmargin: 0;\n\toutline: none;\n\tpadding: 0;\n\n\t-webkit-box-sizing: border-box;\n\t   -moz-box-sizing: border-box;\n\t\t\tbox-sizing: border-box;\n}\n\n.logo {\n/*\tbackground: url(\"../images/logo.png\");*/\n}\n\n.system__logout {\n\tdisplay: inline-block;\n\theight: 20px;\n\twidth: 20px;\n\t/*background: url(\"../images/icons/logout.png\") no-repeat center center;*/\n\tbackground-size: cover;\n\tpadding-top: 4px;\n}\n\n\n.wraper {\n\twidth: 100vw;\n  \theight: 100vh;\n  \tbackground: url(" + ___CSS_LOADER_URL___0___ + ");\n  \t-webkit-background-size: cover;\n  \tbackground-size: cover;\n\tdisplay: grid;\n\tgrid-column-gap: 20px;\n\talign-content: stretch;\t\n\tjustify-content: stretch;\t\n\tgrid-template-columns: minmax(130px, 300px) minmax(400px, auto);\n}\n\n\n\n\n/* navigation */\n.navigation__wrap {\n\tbackground: rgba(255,255,255, 0.5);\n\tpadding: 50px;\n\tpadding-top: 35px;\n}\n\n.navigation__logo {\n\tmargin: 0 auto 40px;\n\tdisplay: block;\n}\n\n.navigation__list {}\n\n.nav__element {\n\tdisplay: flex;\n\tmargin-bottom: 25px;\n\toverflow: hidden;\n \talign-items: center;\n}\n\n.nav__element-title {\n\tpadding-top: 15px;\n\tpadding-left: 0;\n\tcolor: #3b3b3b;\n\tfont-weight: bold;\n}\n\n.nav__link {\n\tcolor: #4c4c4c;\n}\n.nav__element-icon {\n\twidth: 15px;\n\theight: 15px;\n\tdisplay: inline-block;\n\tbackground-size: cover;\n\tmargin-right: 12px;\n}\n\n\n\n\n/* header */\n.header__wrap {\n\theight: 35px;\n\tline-height: 35px;\n\tbackground: rgba(255,255,255, 0.5);\n\ttext-align: right;\n\tcolor: #4c4c4c;\n\t/*font-weight: bold;*/\n\tpadding: 0 20px;\n}\n\n.header__nickname {\n\tfont-weight: bold;\n}\n\n/* styling tables */\n.table__wrap {\n    padding: 15px;\n}\n\n.table-menu {\n    width: 100%;\n    display: block;\n    margin-bottom: 20px;\n}\n.table-menu__element {\n    display: inline-block;\n    margin-right: 15px;\n}\n.table-menu__element:hover {\n    cursor: pointer;\n    text-decoration: underline;\n}\n\n\ntable {\n    border-collapse: collapse;\n    width: 100%;\n}\nthead, tfoot {\n    background: #ffffff95;\n    border: 1px solid #88888538;\n}\ntbody {\n    border-right: 1px solid #88888853;\n    border-left: 1px solid #88888853;\n}\nthead td, tfoot td {\n    padding: 12px 0;\n    font-size: 13px;\n}\ntd {\n    padding: 8px 0;\n    font-size: 12px;\n}\n\ntd:last-child {\n    padding-right: 25px;\n    text-align: right;\n}\ntd:first-child {\n    padding-left: 25px;\n}\n\ntbody tr:nth-child(2n) {\n    background: rgba(255,255,255,0.85);\n}\n\ntbody td {\n    vertical-align: middle;\n}\n\ntd .btn {\n    float: right;\n    margin-right: 5px;\n    text-transform: uppercase;\n    font-size: 8.5px;\n}\ntd .btn:first-child {\n    margin-right: 0;\n}\n\n/* main block */\n.main-content {\n\tpadding: 15px;\n\tdisplay: block;\n\tmargin-top: 20px;\n\tmargin-right: 20px;\n\tbackground: rgba(255,255,255, 0.5);\n}\n\n\n", ""]);
 
 
 
@@ -1089,6 +1441,37 @@ function toComment(sourceMap) {
   var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
   return '/*# ' + data + ' */';
 }
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/url-escape.js":
+/*!************************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/url-escape.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function escape(url, needQuotes) {
+  if (typeof url !== 'string') {
+    return url;
+  } // If url is already wrapped in quotes, remove them
+
+
+  if (/^['"].*['"]$/.test(url)) {
+    url = url.slice(1, -1);
+  } // Should url be wrapped?
+  // See https://drafts.csswg.org/css-values-3/#urls
+
+
+  if (/["'() \t\n]/.test(url) || needQuotes) {
+    return '"' + url.replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"';
+  }
+
+  return url;
+};
 
 /***/ }),
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import {NavLink} from 'react-router-dom';
 
 import { SelectUser, SelectAdmins, SelectAllUsers, SelectSlaves, SelectModerators } from '../actions/index'
 
@@ -10,6 +11,9 @@ import initialUsers from '../reducers/users'
 
 class UsersList extends Component {
     showUsers () {
+        if (!this.props.users)
+            return <tr><td>Список пуст</td></tr>
+
         if (this.props.activeUsers) {
             return this.props.activeUsers.map((user, index) => {
                 return (
@@ -20,16 +24,14 @@ class UsersList extends Component {
                         <td>{user.registration_date}</td>
                         <td>{user.role}</td>
                         <td>
-                            <a className="btn btn-red" href="#">delete</a>
-                            <a className="btn btn-blue" href="#">change</a>
+                            <a className="btn btn-red" href="/users/1">delete</a>
+                            <NavLink className="btn btn-blue" to="/users/1">change</NavLink>
                             <a className="btn btn-orange" href="#" onClick={() => this.props.selectUser(user)} >info</a>
                         </td>
                     </tr>
                 )
             })
         }
-        if (!this.props.users)
-            return <tr><td>Список пуст</td></tr>
 
         return this.props.users.map((user, index) => {
             return (
@@ -40,8 +42,8 @@ class UsersList extends Component {
                     <td>{user.registration_date}</td>
                     <td>{user.role}</td>
                     <td>
-                        <a className="btn btn-red" href="#">delete</a>
-                        <a className="btn btn-blue" href="#">change</a>
+                        <a className="btn btn-red" href="/users/1">delete</a>
+                        <NavLink className="btn btn-blue" to={"/users/" + index}>change</NavLink>
                         <a className="btn btn-orange" href="#" onClick={() => this.props.selectUser(user)} >info</a>
                     </td>
                 </tr>
@@ -94,7 +96,7 @@ class UsersList extends Component {
 function mapStateTpProps (state) {
     return {
         users: state.defaultUsers,
-        activeUsers: state.activeUser
+        activeUsers: state.activeUsers
     }
 }
 

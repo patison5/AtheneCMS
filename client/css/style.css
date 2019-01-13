@@ -108,7 +108,7 @@ input {
 .wraper {
 	width: 100vw;
   	height: 100vh;
-  	/*background: url("../images/mountains.jpg");*/
+  	background: url("/client/images/mountains.jpg");
   	-webkit-background-size: cover;
   	background-size: cover;
 	display: grid;
@@ -203,15 +203,20 @@ table {
     width: 100%;
 }
 thead, tfoot {
-    background: #fff;
-    border: 1px solid #888;
+    background: #ffffff95;
+    border: 1px solid #88888538;
 }
 tbody {
-    border-right: 1px solid #888;
-    border-left: 1px solid #888;
+    border-right: 1px solid #88888838;
+    border-left: 1px solid #88888838;
+}
+thead td, tfoot td {
+    padding: 12px 0;
+    font-size: 13px;
 }
 td {
     padding: 8px 0;
+    font-size: 12px;
 }
 
 td:last-child {
@@ -222,8 +227,8 @@ td:first-child {
     padding-left: 25px;
 }
 
-tbody tr:nth-child(2n+1) {
-    background: rgba(0,0,0,0.1);
+tbody tr:nth-child(2n) {
+    background: rgba(255,255,255,0.85);
 }
 
 tbody td {

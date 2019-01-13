@@ -26,5 +26,9 @@ module.exports = (env, argv) => ({
 			}
 		]
 	},
+    devServer: {
+        historyApiFallback: true,
+        contentBase: './'
+    },
 	devtool: argv.mode === 'development' ? 'source-map' : false
 })
